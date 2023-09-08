@@ -6,6 +6,7 @@ public class HelloWorld {
 		System.out.println("Hello World");
 		System.out.println("Hey!");
 		System.out.println("Oops!")
-	}
+		System.out.println("From Kyocera");
+		}
 
 }
