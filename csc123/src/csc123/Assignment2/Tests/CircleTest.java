@@ -1,4 +1,4 @@
-package Tests;
+package csc123.Assignment2.Tests;
 
 public class CircleTest {
     final static double pi = 3.14;

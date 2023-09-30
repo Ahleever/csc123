@@ -1,4 +1,4 @@
-package Tests;
+package csc123.Assignment2.Tests;
 
 import java.util.ArrayList;
 import java.util.Scanner;

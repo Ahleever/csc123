@@ -1,3 +1,5 @@
+package csc123.Assignment2;
+
 //Oliver Montero (omontero1@toromail.csudh.edu)
 
 public class CircleClass {
