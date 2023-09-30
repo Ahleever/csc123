@@ -1,5 +1,4 @@
 //Oliver Montero (omontero1@toromail.csudh.edu)
-
 import java.util.ArrayList;
 
 public class InvString {
