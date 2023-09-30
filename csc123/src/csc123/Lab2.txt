@@ -1,0 +1,40 @@
+q1.
+
+I'd create main method which allows user to view account balance then a class for an open account and a class for a closed account.
+A switch statement could be used to view the account balance, go into the open account via open account options or the closed account
+The accounts/ classes would be accessed via if else statements to determine whether the account is open or closed.
+Within the open account, there would be methods to deposit, withdraw, view statements, or close the account which would then give you the option to withdraw your money.
+Within the closed account, you would only be given the option to withdraw your money should there be any left.
+q2. 
+
+iPhone
+Smartphone, touch screen, usb-c port, cameras, minimal
+Car
+Type of engine, color, drivetrain, capacity, mpg
+Smart TV
+Connects to wifi, brand, type of screen, size, Android
+Book
+Paper, shape, genre, ink, art 
+Dollar Bill
+Crisp, distinct smell, valuable, Washington, foldable
+q3.
+
+1. Classes for a can of coke
+
+Soda
+Aluminum Can
+Brand
+Nutrition
+2. Classes for Einstein
+
+Human
+Scientist
+Physicist
+German
+3. Classes for toyota camry
+
+Motor Vehicle
+Sedan
+Make: Toyota
+Model: Camry
+ 
