@@ -68,9 +68,15 @@ class Driver extends ShoppingCart {
                     kb.nextLine();
                     System.out.println();
                 } else if (choice == 4) {
-                    // Calculate total logic here
+                    double total = 0;
+                    for (Item item : cart) {
+                        total += item.getPrice();
+                    }
+                    System.out.println("Total: $" + total);
                 } else if (choice == 5) {
-                    // My Items logic here
+                    for (Item item : cart) {
+                        System.out.println(item.getName());
+                    }
                 }
             } else {
                 kb.nextLine();
@@ -84,6 +90,7 @@ class Item {
     public double price;
 
     public Item(String name, double price) {
+
         this.name = name;
         this.price = price;
     }
