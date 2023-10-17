@@ -56,7 +56,7 @@ class Driver {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter the nameof the publication: ");
+                    System.out.print("Enter the name of the publication: ");
                     String name = kb.nextLine();
                     System.out.print("Enter the vendor: ");
                     String vendor = kb.nextLine();
@@ -126,7 +126,7 @@ class Driver {
                     System.out.println("--------------------------------------------");
                     break;
                 case 4:
-
+                    cart.printCartContents();
                     System.out.println("--------------------------------------------");
                     break;
                 case 5:
