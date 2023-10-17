@@ -3,77 +3,146 @@ package csc123.Assignment3;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ShoppingCart {
-    public static String name;
-    public static String vendor;
-    public static double price;
-    public static double cost;
-    public static double weight;
-    private static double taxRate = 9.5;
-    public static boolean addItem = true;
+class ShoppingCart {
+    private ArrayList<Item> items;
 
-    static ArrayList<Item> cart = new ArrayList<>();
+    public ShoppingCart() {
+        items = new ArrayList<>();
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public String calculateTotalCost() {
+        double totalCost = 0;
+        for (Item item : items) {
+            totalCost += item.calculateTotalCost();
+        }
+        return String.format("%.2f", totalCost);
+    }
+
+    public void printCartContents() {
+        for (Item item : items) {
+            System.out.println(item);
+        }
+        System.out.println("There are " + items.size() + " items in the cart");
+    }
 }
 
-class Driver extends ShoppingCart {
+class Driver {
     public static void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
         Scanner kb = new Scanner(System.in);
-        byte choice;
+        boolean isShopping = true;
 
-        while (addItem) {
-            System.out.print("1 - Add a publication\n2 - Add a food item\n3 - Add a general item" +
-                    "\n4 - Calculate total\n5 - My Items\nPlease enter your choice: ");
+        while (isShopping) {
+            System.out.println("\nShopping Cart Menu:");
+            System.out.println("1. Add Publication");
+            System.out.println("2. Add Food");
+            System.out.println("3. Add General Grocery Item");
+            System.out.println("4. View Cart Contents");
+            System.out.println("5. Calculate Total Cost");
+            System.out.println("6. Exit");
+            System.out.println("Select an option: ");
+            System.out.println("--------------------------------------------");
 
-            if (kb.hasNextByte()) {
-                choice = kb.nextByte();
-                kb.nextLine();
+            int choice = kb.nextInt();
+            kb.nextLine();
 
-                while (choice < 1 || choice > 5) {
-                    System.out.print("1 - Add a publication\n2 - Add a food item\n3 - Add a general item" +
-                            "\n4 - Calculate total\n5 - My Items\nPlease enter your choice: ");
-                    choice = kb.nextByte();
-                    kb.nextLine();
-                }
-
-                if (choice == 1) {
-                    Publication publication = null;
-                    kb.nextLine();
-                    System.out.print("Enter publication name: ");
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the nameof the publication: ");
                     String name = kb.nextLine();
-                    System.out.print("Enter publication price: ");
+                    System.out.print("Enter the vendor: ");
+                    String vendor = kb.nextLine();
+                    System.out.print("Enter the price: ");
                     double price = kb.nextDouble();
-                    System.out.print("Enter author: ");
-                    String author = kb.next();
-                    System.out.print("Enter publication month: ");
-                    String publicationMonth = kb.next();
-                    System.out.print("Enter number of pages: ");
+                    kb.nextLine();
+                    System.out.print("Enter the cost: ");
+                    double cost = kb.nextDouble();
+                    kb.nextLine();
+                    System.out.print("Enter the weight(lbs): ");
+                    double weight = kb.nextDouble();
+                    kb.nextLine();
+                    System.out.print("Enter the author: ");
+                    String author = kb.nextLine();
+                    System.out.print("Enter the publication month: ");
+                    String publicationMonth = kb.nextLine();
+                    System.out.print("Enter the number of pages: ");
                     int numPages = kb.nextInt();
-                    publication = new Publication(name, price, author, publicationMonth, numPages);
-                    cart.add(publication);
-                } else if (choice == 2) {
-                    Food foodItem = null;
                     kb.nextLine();
-                    System.out.print("Enter food item name: ");
-                    String name = kb.nextLine();
-                    System.out.print("Enter food item price: ");
-                    double price = kb.nextDouble();
-                    System.out.print("Enter food item sell by date: ");
+                    Publication publication = new Publication(name, vendor, price, cost, weight, author,
+                            publicationMonth, numPages);
+                    cart.addItem(publication);
+                    System.out.println("Publication added to the cart.");
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 2:
+                    System.out.print("Enter the name: ");
+                    String foodName = kb.nextLine();
+                    System.out.print("Enter the vendor: ");
+                    String foodVendor = kb.nextLine();
+                    System.out.print("Enter the price: ");
+                    double foodPrice = kb.nextDouble();
+                    kb.nextLine();
+                    System.out.print("Enter the cost: ");
+                    double foodCost = kb.nextDouble();
+                    kb.nextLine();
+                    System.out.print("Enter the weight(lbs): ");
+                    double foodWeight = kb.nextDouble();
+                    kb.nextLine();
+                    System.out.print("Enter the Sell By Date(MM/YY): ");
                     String sellByDate = kb.nextLine();
-                    System.out.print("Enter food item use by date: ");
+                    System.out.print("Enter the Use By Date(MM/YY): ");
                     String useByDate = kb.nextLine();
-                    foodItem = new Food(name, price, sellByDate, useByDate);
-                    cart.add(foodItem);
-                } else if (choice == 3) {
-                    Item generalItem = null;
+                    Food foodItem = new Food(foodName, foodVendor, foodPrice, foodCost, foodWeight, sellByDate,
+                            useByDate);
+                    cart.addItem(foodItem);
+                    System.out.println("Food item added to the cart.");
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 3:
+                    System.out.print("Enter the name: ");
+                    String itemName = kb.nextLine();
+                    System.out.print("Enter the vendor: ");
+                    String itemVendor = kb.nextLine();
+                    System.out.print("Enter the price: ");
+                    double itemPrice = kb.nextDouble();
                     kb.nextLine();
-                    System.out.println();
-                } else if (choice == 4) {
-                    // Calculate total logic here
-                } else if (choice == 5) {
-                    // My Items logic here
-                }
-            } else {
-                kb.nextLine();
+                    System.out.print("Enter the cost: ");
+                    double itemCost = kb.nextDouble();
+                    kb.nextLine();
+                    System.out.print("Enter the weight(lbs): ");
+                    double itemWeight = kb.nextDouble();
+                    kb.nextLine();
+                    Item groceryItem = new Item(itemName, itemVendor, itemPrice, itemCost, itemWeight);
+                    cart.addItem(groceryItem);
+                    System.out.println("General Grocery Item added to the cart.");
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 4:
+                    System.out.println("Items in the Shopping Cart:");
+                    cart.printCartContents();
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 5:
+                    String totalCost = cart.calculateTotalCost();
+                    System.out.println("--------------------------------------------");
+                    System.out.println("Total Cost of Items in the Cart: $" + totalCost);
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 6:
+                    System.out.println("Exiting the program.");
+                    kb.close();
+                    isShopping = false;
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+                    System.out.println("--------------------------------------------");
             }
         }
     }
@@ -81,19 +150,29 @@ class Driver extends ShoppingCart {
 
 class Item {
     public String name;
-    public double price;
+    public String vendor;
+    private double price;
+    private double cost;
+    private double weight;
+    private double taxRate = 9.5;
 
-    public Item(String name, double price) {
+    public Item(String name, String vendor, double price, double cost, double weight) {
         this.name = name;
+        this.vendor = vendor;
         this.price = price;
+        this.cost = cost;
+        this.weight = weight;
     }
 
-    public String getName() {
-        return name;
+    public double calculateTotalCost() {
+        return price + (price * taxRate / 100);
     }
 
-    public double getPrice() {
-        return price;
+    @Override
+    public String toString() {
+        double totalCost = calculateTotalCost();
+        return String.format("%s (Vendor: %s, Price: $%.2f, Tax: %.2f%%, Total Cost: $%.2f)", name, vendor, price,
+                taxRate, totalCost);
     }
 }
 
@@ -102,23 +181,18 @@ class Publication extends Item {
     private String publicationMonth;
     private int numPages;
 
-    public Publication(String name, double price, String author, String publicationMonth, int numPages) {
-        super(name, price);
+    public Publication(String name, String vendor, double price, double cost, double weight,
+            String author, String publicationMonth, int numPages) {
+        super(name, vendor, price, cost, weight);
         this.author = author;
         this.publicationMonth = publicationMonth;
         this.numPages = numPages;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublicationMonth() {
-        return publicationMonth;
-    }
-
-    public int getNumPages() {
-        return numPages;
+    @Override
+    public String toString() {
+        return super.toString() + ", Author: " + author + ", Publication Month: " + publicationMonth
+                + ", Number of Pages: " + numPages;
     }
 }
 
@@ -126,17 +200,16 @@ class Food extends Item {
     private String sellByDate;
     private String useByDate;
 
-    public Food(String name, double price, String sellByDate, String useByDate) {
-        super(name, price);
+    public Food(String name, String vendor, double price, double cost, double weight, String sellByDate,
+            String useByDate) {
+        super(name, vendor, price, cost, weight);
         this.sellByDate = sellByDate;
         this.useByDate = useByDate;
     }
 
-    public String getSellByDate() {
-        return sellByDate;
+    @Override
+    public String toString() {
+        return super.toString() + ", Sell By Date: " + sellByDate + ", Use By Date: " + useByDate;
     }
 
-    public String getUseByDate() {
-        return useByDate;
-    }
 }
