@@ -117,14 +117,31 @@ class Driver {
                     System.out.print("Enter the cost: ");
                     double itemCost = kb.nextDouble();
                     kb.nextLine();
-                    System.out.println();
-                } else if (choice == 4) {
-                    // Calculate total logic here
-                } else if (choice == 5) {
-                    // My Items logic here
-                }
-            } else {
-                kb.nextLine();
+                    System.out.print("Enter the weight(lbs): ");
+                    double itemWeight = kb.nextDouble();
+                    kb.nextLine();
+                    Item groceryItem = new Item(itemName, itemVendor, itemPrice, itemCost, itemWeight);
+                    cart.addItem(groceryItem);
+                    System.out.println("General Grocery Item added to the cart.");
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 4:
+
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 5:
+                    String totalCost = cart.calculateTotalCost();
+                    System.out.println("--------------------------------------------");
+                    System.out.println("Total Cost of Items in the Cart: $" + totalCost);
+                    System.out.println("--------------------------------------------");
+                    break;
+                case 6:
+                    System.out.println("Exiting the program.");
+                    kb.close();
+                    isShopping = false;
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+                    System.out.println("--------------------------------------------");
             }
         }
     }
@@ -138,7 +155,7 @@ class Item {
     private double weight;
     private double taxRate = 9.5;
 
-    public Item(String name, double price) {
+    public Item(String name, String vendor, double price, double cost, double weight) {
         this.name = name;
         this.vendor = vendor;
         this.price = price;
@@ -161,7 +178,8 @@ class Item {
 class Publication extends Item {
     private String author;
     private String publicationMonth;
-    priva
+    private int numPages;
+
     public Publication(String name, String vendor, double price, double cost, double weight,
             String author, String publicationMonth, int numPages) {
         super(name, vendor, price, cost, weight);
@@ -171,13 +189,11 @@ class Publication extends Item {
     }
 
     @Override
-
-           retu
-
+    public String toString() {
+        return super.toString() + ", Author: " + author + ", Publication Month: " + publicationMonth
                 + ", Number of Pages: " + numPages;
     }
-
-    
+}
 
 class Food extends Item {
     private String sellByDate;
