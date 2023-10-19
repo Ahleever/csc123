@@ -39,109 +39,111 @@ class Driver {
         ShoppingCart cart = new ShoppingCart();
         Scanner kb = new Scanner(System.in);
         boolean isShopping = true;
+        int choice;
 
         while (isShopping) {
-            System.out.println("\nShopping Cart Menu:");
-            System.out.println("1. Add Publication");
-            System.out.println("2. Add Food");
-            System.out.println("3. Add General Grocery Item");
-            System.out.println("4. View Cart Contents");
-            System.out.println("5. Calculate Total Cost");
-            System.out.println("6. Exit");
+            System.out.println("\nShopping Cart Menu:\n1. Add Publication" +
+                    "\n2. Add Food\n3. Add General Grocery Item\n4. View Cart Contents" +
+                    "\n5. Calculate Total Cost\n6. Exit\n");
             System.out.println("Select an option: ");
-            System.out.println("--------------------------------------------");
+            if (kb.hasNextInt()) {
+                choice = kb.nextInt();
+                kb.nextLine();
 
-            int choice = kb.nextInt();
-            kb.nextLine();
-
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter the name of the publication: ");
-                    String name = kb.nextLine();
-                    System.out.print("Enter the vendor: ");
-                    String vendor = kb.nextLine();
-                    System.out.print("Enter the price: ");
-                    double price = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the cost: ");
-                    double cost = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the weight(lbs): ");
-                    double weight = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the author: ");
-                    String author = kb.nextLine();
-                    System.out.print("Enter the publication month: ");
-                    String publicationMonth = kb.nextLine();
-                    System.out.print("Enter the number of pages: ");
-                    int numPages = kb.nextInt();
-                    kb.nextLine();
-                    Publication publication = new Publication(name, vendor, price, cost, weight, author,
-                            publicationMonth, numPages);
-                    cart.addItem(publication);
-                    System.out.println("Publication added to the cart.");
-                    System.out.println("--------------------------------------------");
-                    break;
-                case 2:
-                    System.out.print("Enter the name: ");
-                    String foodName = kb.nextLine();
-                    System.out.print("Enter the vendor: ");
-                    String foodVendor = kb.nextLine();
-                    System.out.print("Enter the price: ");
-                    double foodPrice = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the cost: ");
-                    double foodCost = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the weight(lbs): ");
-                    double foodWeight = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the Sell By Date(MM/YY): ");
-                    String sellByDate = kb.nextLine();
-                    System.out.print("Enter the Use By Date(MM/YY): ");
-                    String useByDate = kb.nextLine();
-                    Food foodItem = new Food(foodName, foodVendor, foodPrice, foodCost, foodWeight, sellByDate,
-                            useByDate);
-                    cart.addItem(foodItem);
-                    System.out.println("Food item added to the cart.");
-                    System.out.println("--------------------------------------------");
-                    break;
-                case 3:
-                    System.out.print("Enter the name: ");
-                    String itemName = kb.nextLine();
-                    System.out.print("Enter the vendor: ");
-                    String itemVendor = kb.nextLine();
-                    System.out.print("Enter the price: ");
-                    double itemPrice = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the cost: ");
-                    double itemCost = kb.nextDouble();
-                    kb.nextLine();
-                    System.out.print("Enter the weight(lbs): ");
-                    double itemWeight = kb.nextDouble();
-                    kb.nextLine();
-                    Item groceryItem = new Item(itemName, itemVendor, itemPrice, itemCost, itemWeight);
-                    cart.addItem(groceryItem);
-                    System.out.println("General Grocery Item added to the cart.");
-                    System.out.println("--------------------------------------------");
-                    break;
-                case 4:
-                    cart.printCartContents();
-                    System.out.println("--------------------------------------------");
-                    break;
-                case 5:
-                    String totalCost = cart.calculateTotalCost();
-                    System.out.println("--------------------------------------------");
-                    System.out.println("Total Cost of Items in the Cart: $" + totalCost);
-                    System.out.println("--------------------------------------------");
-                    break;
-                case 6:
-                    System.out.println("Exiting the program.");
-                    kb.close();
-                    isShopping = false;
-                default:
-                    System.out.println("Invalid option. Please choose a valid option.");
-                    System.out.println("--------------------------------------------");
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter the name of the publication: ");
+                        String name = kb.nextLine();
+                        System.out.print("Enter the vendor: ");
+                        String vendor = kb.nextLine();
+                        System.out.print("Enter the price: ");
+                        double price = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the cost: ");
+                        double cost = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the weight(lbs): ");
+                        double weight = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the author: ");
+                        String author = kb.nextLine();
+                        System.out.print("Enter the publication month: ");
+                        String publicationMonth = kb.nextLine();
+                        System.out.print("Enter the number of pages: ");
+                        int numPages = kb.nextInt();
+                        kb.nextLine();
+                        Publication publication = new Publication(name, vendor, price, cost, weight, author,
+                                publicationMonth, numPages);
+                        cart.addItem(publication);
+                        System.out.println("Publication added to the cart.");
+                        System.out.println("--------------------------------------------");
+                        break;
+                    case 2:
+                        System.out.print("Enter the name: ");
+                        String foodName = kb.nextLine();
+                        System.out.print("Enter the vendor: ");
+                        String foodVendor = kb.nextLine();
+                        System.out.print("Enter the price: ");
+                        double foodPrice = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the cost: ");
+                        double foodCost = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the weight(lbs): ");
+                        double foodWeight = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the Sell By Date(MM/YY): ");
+                        String sellByDate = kb.nextLine();
+                        System.out.print("Enter the Use By Date(MM/YY): ");
+                        String useByDate = kb.nextLine();
+                        Food foodItem = new Food(foodName, foodVendor, foodPrice, foodCost, foodWeight, sellByDate,
+                                useByDate);
+                        cart.addItem(foodItem);
+                        System.out.println("Food item added to the cart.");
+                        System.out.println("--------------------------------------------");
+                        break;
+                    case 3:
+                        System.out.print("Enter the name: ");
+                        String itemName = kb.nextLine();
+                        System.out.print("Enter the vendor: ");
+                        String itemVendor = kb.nextLine();
+                        System.out.print("Enter the price: ");
+                        double itemPrice = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the cost: ");
+                        double itemCost = kb.nextDouble();
+                        kb.nextLine();
+                        System.out.print("Enter the weight(lbs): ");
+                        double itemWeight = kb.nextDouble();
+                        kb.nextLine();
+                        Item groceryItem = new Item(itemName, itemVendor, itemPrice, itemCost, itemWeight);
+                        cart.addItem(groceryItem);
+                        System.out.println("General Grocery Item added to the cart.");
+                        System.out.println("--------------------------------------------");
+                        break;
+                    case 4:
+                        System.out.print("Items in the Shopping Cart:");
+                        cart.printCartContents();
+                        System.out.println("--------------------------------------------");
+                        break;
+                    case 5:
+                        String totalCost = cart.calculateTotalCost();
+                        System.out.println("--------------------------------------------");
+                        System.out.println("Total Cost of Items in the Cart: $" + totalCost);
+                        System.out.println("--------------------------------------------");
+                        break;
+                    case 6:
+                        System.out.println("Exiting the program.");
+                        kb.close();
+                        isShopping = false;
+                        break;
+                    default:
+                        System.out.println("Invalid option. Please choose a valid option.");
+                        System.out.println("--------------------------------------------");
+                        break;
+                }
+            } else {
+                break;
             }
         }
     }
