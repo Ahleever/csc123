@@ -3,10 +3,10 @@ package csc123.Assignment3;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class ShoppingCart {
+class shoppingCart {
     private ArrayList<Item> items;
 
-    public ShoppingCart() {
+    public shoppingCart() {
         items = new ArrayList<>();
     }
 
@@ -30,13 +30,13 @@ class ShoppingCart {
         for (Item item : items) {
             System.out.println(item);
         }
-        System.out.println("There are " + items.size() + " items in the cart");
+        System.out.print("There are " + items.size() + " items in the cart\n");
     }
 }
 
 class Driver {
     public static void main(String[] args) {
-        ShoppingCart cart = new ShoppingCart();
+        shoppingCart cart = new shoppingCart();
         Scanner kb = new Scanner(System.in);
         boolean isShopping = true;
         int choice;
@@ -75,6 +75,7 @@ class Driver {
                         Publication publication = new Publication(name, vendor, price, cost, weight, author,
                                 publicationMonth, numPages);
                         cart.addItem(publication);
+                        System.out.println("--------------------------------------------");
                         System.out.println("Publication added to the cart.");
                         System.out.println("--------------------------------------------");
                         break;
@@ -99,6 +100,7 @@ class Driver {
                         Food foodItem = new Food(foodName, foodVendor, foodPrice, foodCost, foodWeight, sellByDate,
                                 useByDate);
                         cart.addItem(foodItem);
+                        System.out.println("--------------------------------------------");
                         System.out.println("Food item added to the cart.");
                         System.out.println("--------------------------------------------");
                         break;
@@ -118,11 +120,13 @@ class Driver {
                         kb.nextLine();
                         Item groceryItem = new Item(itemName, itemVendor, itemPrice, itemCost, itemWeight);
                         cart.addItem(groceryItem);
+                        System.out.println("--------------------------------------------");
                         System.out.println("General Grocery Item added to the cart.");
                         System.out.println("--------------------------------------------");
                         break;
                     case 4:
-                        System.out.print("Items in the Shopping Cart:");
+                        System.out.println("--------------------------------------------");
+                        System.out.print("Items in the Shopping Cart: ");
                         cart.printCartContents();
                         System.out.println("--------------------------------------------");
                         break;
@@ -133,11 +137,12 @@ class Driver {
                         System.out.println("--------------------------------------------");
                         break;
                     case 6:
-                        System.out.println("Exiting the program.");
+                        System.out.println("Thanks for shopping with us!");
                         kb.close();
                         isShopping = false;
                         break;
                     default:
+                        System.out.println("--------------------------------------------");
                         System.out.println("Invalid option. Please choose a valid option.");
                         System.out.println("--------------------------------------------");
                         break;
