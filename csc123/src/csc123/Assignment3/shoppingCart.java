@@ -1,5 +1,6 @@
-package csc123.Assignment3;
 
+//package csc123.Assignment3;
+//Oliver Montero (omontero1@toromail.csudh.edu)
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,7 +31,11 @@ class shoppingCart {
         for (Item item : items) {
             System.out.println(item);
         }
-        System.out.print("There are " + items.size() + " items in the cart\n");
+        double totalWeight = 0;
+        for (Item item : items) {
+            totalWeight += item.getWeight();
+        }
+        System.out.print("There are " + items.size() + " items in the cart weighing in at: " + totalWeight + " lbs.\n");
     }
 }
 
@@ -172,6 +177,10 @@ class Item {
 
     public double calculateTotalCost() {
         return price + (price * taxRate / 100);
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     @Override
