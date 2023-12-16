@@ -56,7 +56,8 @@ class Account {
                 transactions.add(new Transaction("Debit", amount));
                 System.out.println("Withdrawal successful, the new balance is: " + String.format("$%,.2f", balance));
             } else {
-                System.out.println("Withdrawal failed, insufficient funds. The balance is: " + String.format("$%,.2f", balance ));
+                System.out.println(
+                        "Withdrawal failed, insufficient funds. The balance is: " + String.format("$%,.2f", balance));
             }
         } else {
             System.out.println("Withdrawal failed, the account is closed.");
@@ -124,7 +125,7 @@ class Account {
                 }
             }
         } else {
-            System.out.println("Account is already closed.");
+            System.out.println("Account is already closed. Balance is: " + String.format("$%,.2f", balance));
         }
     }
 
@@ -173,13 +174,13 @@ class Account {
 
                     if (refundAmount > 0) {
                         System.out.println(
-                                "Deposit successful. The account is now closed, and the closing balance is "
+                                "The account is now closed, and the closing balance is "
                                         + String.format("$%,.2f", balance));
                         System.out.println("Refund of " + String.format("$%,.2f", refundAmount) + " has been issued.");
                         isOpen = true;
                     } else {
                         System.out.println(
-                                "Deposit successful. The account is now closed, and the closing balance is "
+                                "The account is now closed, and the closing balance is "
                                         + String.format("$%,.2f", balance));
                         isOpen = false;
                     }
@@ -309,8 +310,12 @@ class CheckingAccount extends Account {
             balance -= amount;
             transactions.add(new Transaction("Debit", amount));
             System.out.println("Withdrawal successful, the new balance is: " + String.format("$%,.2f", balance));
+        } else if (isOpen && (balance - amount < -overdraftLimit)) {
+            System.out.println(
+                    "Withdrawal failed, insufficient funds. The balance is: " + String.format("$%,.2f", balance));
+            System.out.println("You may withdraw up to " + String.format("$%,.2f", overdraftLimit + balance));
         } else {
-            System.out.println("Withdrawal failed, insufficient funds or the account is closed.");
+            System.out.println("Withdrawl failed, account is closed");
         }
     }
 
@@ -422,9 +427,6 @@ class Bank {
         Account account = findAccount(accountNumber);
         if (account != null) {
             account.withdraw(amount);
-            if (!account.isOpen) {
-                //accounts.remove(account);
-            }
         } else {
             System.out.println("Account not found.");
         }
@@ -435,7 +437,7 @@ class Bank {
         if (account != null) {
             account.closeAccount(kb);
             if (account.balance == 0.0) {
-                //accounts.remove(account);
+                System.out.println("Thank you for working with us!");
             }
         } else {
             System.out.println("Account not found.");
@@ -471,7 +473,7 @@ public class BankingApplication {
 
             try {
 
-                if (kb.hasNextInt()) { 
+                if (kb.hasNextInt()) {
                     choice = kb.nextInt();
                     kb.nextLine();
 
