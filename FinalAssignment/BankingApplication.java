@@ -20,14 +20,20 @@ class Account {
     protected ArrayList<Transaction> transactions;
 
     public Account(String firstName, String lastName, String ssn, int age) {
-        this.accountNumber = getNextAccountNumber();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.ssn = ssn;
-        this.age = age;
-        this.balance = 0.0;
-        this.isOpen = true;
-        this.transactions = new ArrayList<>();
+        if (isValidAgeForAccountType(age)) {
+            this.accountNumber = getNextAccountNumber();
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.ssn = ssn;
+            this.age = age;
+            this.balance = 0.0;
+            this.isOpen = true;
+            this.transactions = new ArrayList<>();
+        } else {
+            System.out.println("Error: Account could not be opened. Account holder is too young.");
+            System.out.println("Account will not be created.");
+            this.isOpen = false;
+        }
     }
 
     public void deposit(double amount) {
@@ -50,7 +56,7 @@ class Account {
                 transactions.add(new Transaction("Debit", amount));
                 System.out.println("Withdrawal successful, the new balance is: " + String.format("$%,.2f", balance));
             } else {
-                System.out.println("Withdrawal failed, insufficient funds or the account is closed.");
+                System.out.println("Withdrawal failed, insufficient funds. The balance is: " + String.format("$%,.2f", balance ));
             }
         } else {
             System.out.println("Withdrawal failed, the account is closed.");
@@ -62,8 +68,8 @@ class Account {
 
     public void closeAccount(Scanner kb) {
         if (isOpen) {
-            System.out.println(
-                    "You are trying to close the account with a balance of " + String.format("$%,.2f", balance));
+            System.out.println("You are trying to close the account with a balance of "
+                    + String.format("$%,.2f", balance));
             if (balance > 0) {
                 System.out.println("Do you want to withdraw all money?");
                 System.out.println("1 - Yes");
@@ -277,9 +283,14 @@ class Account {
         return nextAccountNumber++;
     }
 
+    protected boolean isValidAgeForAccountType(int age) {
+        return true;
+    }
+
 }
 
 class CheckingAccount extends Account {
+    public static final int MIN_AGE = 16;
     private double overdraftLimit;
 
     public CheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, int age) {
@@ -302,6 +313,10 @@ class CheckingAccount extends Account {
             System.out.println("Withdrawal failed, insufficient funds or the account is closed.");
         }
     }
+
+    protected boolean isValidAgeForAccountType(int age) {
+        return age >= MIN_AGE;
+    }
 }
 
 class SavingAccount extends Account {
@@ -309,10 +324,6 @@ class SavingAccount extends Account {
 
     public SavingAccount(String firstName, String lastName, String ssn, int age) {
         super(firstName, lastName, ssn, age);
-        if (!isValidAgeForSavingAccount(age)) {
-            System.out.println("Error: Account could not be opened. Account holder is too young.");
-            closeAccount(null);
-        }
     }
 
     @Override
@@ -329,9 +340,10 @@ class SavingAccount extends Account {
         }
     }
 
-    private boolean isValidAgeForSavingAccount(int age) {
+    protected boolean isValidAgeForAccountType(int age) {
         return age >= MIN_AGE;
     }
+
 }
 
 class Transaction {
@@ -364,14 +376,18 @@ class Bank {
 
     public void openCheckingAccount(String firstName, String lastName, String ssn, double overdraftLimit, int age) {
         CheckingAccount checkingAccount = new CheckingAccount(firstName, lastName, ssn, overdraftLimit, age);
-        accounts.add(checkingAccount);
-        System.out.println("Thank you, the account number is " + checkingAccount.getAccountNumber());
+        if (checkingAccount.getAccountNumber() > 999) {
+            accounts.add(checkingAccount);
+            System.out.println("Thank you, the account number is " + checkingAccount.getAccountNumber());
+        }
     }
 
     public void openSavingAccount(String firstName, String lastName, String ssn, int age) {
         SavingAccount savingAccount = new SavingAccount(firstName, lastName, ssn, age);
-        accounts.add(savingAccount);
-        System.out.println("Thank you, the account number is " + savingAccount.getAccountNumber());
+        if (savingAccount.getAccountNumber() > 999) {
+            accounts.add(savingAccount);
+            System.out.println("Thank you, the account number is " + savingAccount.getAccountNumber());
+        }
     }
 
     public void listAccounts() {
@@ -455,7 +471,7 @@ public class BankingApplication {
 
             try {
 
-                if (kb.hasNextInt()) { // Check if there is an integer input
+                if (kb.hasNextInt()) { 
                     choice = kb.nextInt();
                     kb.nextLine();
 
