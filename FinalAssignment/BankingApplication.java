@@ -423,7 +423,7 @@ class Bank {
         if (account != null) {
             account.withdraw(amount);
             if (!account.isOpen) {
-                accounts.remove(account);
+                //accounts.remove(account);
             }
         } else {
             System.out.println("Account not found.");
@@ -435,7 +435,7 @@ class Bank {
         if (account != null) {
             account.closeAccount(kb);
             if (account.balance == 0.0) {
-                accounts.remove(account);
+                //accounts.remove(account);
             }
         } else {
             System.out.println("Account not found.");
